@@ -1,0 +1,84 @@
+.signUp {
+  color: #fff;
+}
+
+.signUp__wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signUp__content {
+  background-color: #ffc500;
+  width: 500px;
+  padding: 1.5rem;
+}
+
+.signUp h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 2rem;
+  color: #000;
+}
+
+.signUp form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.signUp form input,
+select {
+  width: 100%;
+  padding: 1rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.signUp__content button {
+  width: 100%;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 1rem 0.75rem;
+  /* margin-top: 1rem; */
+}
+
+.signUp__content button:disabled{
+  cursor: not-allowed;
+  color: rgb(136, 168, 168);
+}
+
+.signUp__content a{
+  color: #000;
+text-decoration: none;
+}
+
+.signUp__content a:hover{
+  color: #000;
+text-decoration: none;
+}
+
+.signUp__content p{
+  color: red;
+  text-transform: capitalize;
+  margin: 0rem !important;
+}
+
+@media (max-width: 568px) {
+    .signUp__content {
+  background-color: #ffc500;
+  width: 100%;
+  padding: .8rem;
+}
+
+}

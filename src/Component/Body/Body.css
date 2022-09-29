@@ -1,0 +1,112 @@
+.body {
+  color: #fff;
+  text-align: center;
+}
+
+.underline {
+  width: 6rem;
+  height: 0.25rem;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.body__info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 3rem;
+}
+
+.body h1 {
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+.body__flex {
+  flex: 1;
+  padding: 15px;
+}
+
+.body__flex img {
+  height: 300px;
+  min-width: 300px;
+  max-width: 100%;
+  box-shadow: 8px 8px #fdc500;
+  object-fit: cover;
+  width: 300px;
+}
+
+.body__flex a{
+  text-decoration: none;
+  color: #fff;
+
+}
+
+.body__flex a:hover{
+  opacity: none !important;
+  color: #fff;
+
+}
+
+.body__flex img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.6s ease-in-out;
+}
+
+.body__flex h3 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem 0;
+  text-align: center;
+  line-height: 1.4;
+  color: #ffc500;
+}
+
+.body__flex .desc {
+  margin-bottom: .5rem;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body__flex .price {
+  margin-bottom: .3rem;
+  font-size: 2rem;
+}
+.body__flex .btns {
+  font-size: 1rem;
+  padding: 1rem 4rem;
+  border: none;
+  background-color: #e31837;
+  color: #fff;
+  transition: 0.2 ease-out;
+}
+
+.body__flex .btns:hover {
+  background-color: #ffc500;
+  transition: 0.2s ease-out;
+  color: #000;
+}
+
+@media (max-width: 500px) {
+  .body__flex img:hover {
+    transform: none;
+  }
+  .body__flex h3 {
+    font-weight: 400;
+    font-size: 2rem;
+    margin: 1.5rem 0 2rem 0;
+    text-align: center;
+    line-height: 1.4;
+  }
+}

@@ -1,0 +1,57 @@
+.Herosection {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(../../img/pizza-3WEB.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  margin-top: -80px;
+  /* max-width: 1500px; */
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.Herosection__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  max-height: 100%;
+  padding: 0 2rem;
+  text-transform: uppercase;
+  line-height: 1;
+  font-weight: bold;
+  color: #fff;
+}
+
+.Herosection__info h1 {
+  font-size: 5rem;
+  border-bottom: 4px solid #ffc500;
+  border-right: 2px solid #ffc500;
+  padding: 0 80px 0 0;
+}
+
+.Herosection__info h4 {
+  font-size: 2rem;
+  margin: 5px 0;
+}
+.Herosection__info .btns {
+  margin-top: 20px;
+      font-size: 1rem;
+    padding: 1rem 4rem;
+    border: none;
+    background-color: #e31837;
+    color: #fff;
+}
+
+.btns:hover {
+  background-color: #ffc500;
+  color: #000;
+}
+@media (max-width: 500px) {
+  .Herosection__info h1 {
+    border: none;
+    font-size: 3rem;
+  }
+}

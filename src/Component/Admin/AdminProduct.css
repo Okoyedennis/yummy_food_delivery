@@ -1,0 +1,23 @@
+.admin .icon{
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+tr img{
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.btn-close{
+    opacity: 1 !important;
+}
+
+.btn-close:hover{
+
+    background: transparent;
+    transition: 0.2s ease-out;
+    /* color: #fff !important; */
+opacity: 1 !important;
+}

@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  z-index: 1;
+  width: 100%;
+  max-width: 1300px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2em;
+  padding-left: 2em;
+}
+
+.containe {
+  z-index: 1;
+  width: 100%;
+  max-width: 1300px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.pizzas__btn {
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 500px) {
+  p {
+    font-size: 1.5rem;
+  }
+
+  .body__flex h3 {
+    font-weight: 400;
+    font-size: 2rem;
+    margin: 1.5rem 0 2rem 0;
+    text-align: center;
+    line-height: 1.4;
+  }
+}

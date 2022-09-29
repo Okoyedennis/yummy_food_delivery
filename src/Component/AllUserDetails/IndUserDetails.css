@@ -1,0 +1,25 @@
+.allUserDetails__wrapper h5 {
+  color: #ffc500;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: -.1rem;
+}
+
+.allUserDetails__wrapper a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.allUserDetails__wrapper .admin_functionality{
+    display: flex;
+    align-items: center;
+}
+
+
+.allUserDetails svg{
+  color: #ffc500;
+  font-size: 1.5rem;
+}
