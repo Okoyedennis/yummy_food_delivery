@@ -14,7 +14,7 @@ import { addCurrentCount } from "../../redux/actions/user";
 function Body() {
   const [product, setProduct] = useState([]);
   const dispatch = useDispatch();
-
+  const [loggedInAlert, setLoggedInAlert] = useState(false)
   const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -55,41 +55,59 @@ function Body() {
             console.log(error);
           });
     } else {
-      alert("You Need to Login ");
+      setLoggedInAlert(true)
   }
-
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (loggedInAlert) {
+        setLoggedInAlert(false)
+      }
+    }, 5000);
+  }, [loggedInAlert]);
+  
   return (
-    <div className="body containe">
+    <div className="body container">
       <h1>Choose your favorite</h1>
       <div className="underline"></div>
+      {loggedInAlert && (
+        <div className="alert-container">
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            <strong>ERROR!</strong> You need to signin.
+          </div>
+        </div>
+      )}
       <div className="body__info">
         {product.slice(0, 3 ? 3 : product.length).map((product, index) => {
           return (
             <div className="body__flex" key={index}>
               {product.productName.includes("Pizza") && (
-              <div>
-                <Link to={`/singleProduct/${product.productId}`}>
-                  <img src={product.productImage} alt={product.productName} />
-                  <h3>{product.productName}</h3>
-                  <p className="desc">{product.productDescription}</p>
-                  <p className="price">
-                    <CurrencyFormat
-                      renderText={(value) => <b>{value}</b>}
-                      decimalScale={2}
-                      value={product.productPrice}
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"₦"}
-                    />
-                  </p>
-                </Link>
+                <div>
+                  <Link to={`/singleProduct/${product.productId}`}>
+                    <img src={product.productImage} alt={product.productName} />
+                    <h3>{product.productName}</h3>
+                    <p className="desc">{product.productDescription}</p>
+                    <p className="price">
+                      <CurrencyFormat
+                        renderText={(value) => <b>{value}</b>}
+                        decimalScale={2}
+                        value={product.productPrice}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"₦"}
+                      />
+                    </p>
+                  </Link>
 
-                <button className="btns" onClick={() => addToCart(product)}>
-                  Add to Cart
-                </button>
-              </div>
-              )} 
+                  <button className="btns" onClick={() => addToCart(product)}>
+                    Add to Cart
+                  </button>
+                </div>
+              )}
             </div>
           );
         })}

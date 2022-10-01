@@ -11,7 +11,7 @@ import { addCurrentCount } from "../../redux/actions/user";
 function Pizzas() {
   const [product, setProduct] = useState([]);
   const dispatch = useDispatch();
-
+const [loggedInAlert, setLoggedInAlert] = useState(false);
   const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -50,13 +50,31 @@ function Pizzas() {
        console.log(error);
      });
  } else {
-   alert("You Need to Login ");
+    setLoggedInAlert(true);
  }
   };
+
+    useEffect(() => {
+      setTimeout(() => {
+        if (loggedInAlert) {
+          setLoggedInAlert(false);
+        }
+      }, 5000);
+    }, [loggedInAlert]);
   return (
     <div className="body containe">
       <h1>Pizza Gallary</h1>
       <div className="underline"></div>
+      {loggedInAlert && (
+        <div className="alert-container">
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            <strong>ERROR!</strong> You need to signin.
+          </div>
+        </div>
+      )}
       <div className="body__info">
         {product.slice(0, 8 ? 8 : product.length).map((product, index) => {
           return (

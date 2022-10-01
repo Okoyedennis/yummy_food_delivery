@@ -10,6 +10,7 @@ import BASE_URL from "../../services/Constant";
 
 function FullMenu() {
   const [product, setProduct] = useState([]);
+  const [loggedInAlert, setLoggedInAlert] = useState(false);
   
    const dispatch = useDispatch();
 
@@ -51,14 +52,33 @@ function FullMenu() {
            console.log(error);
          });
      } else {
-       alert("You Need to Login ");
+        setLoggedInAlert(true);
+
      }
     };
+  
+    useEffect(() => {
+      setTimeout(() => {
+        if (loggedInAlert) {
+          setLoggedInAlert(false);
+        }
+      }, 5000);
+    }, [loggedInAlert]);
   
   return (
     <div className="body containe">
       <h1>Full Menu</h1>
       <div className="underline"></div>
+      {loggedInAlert && (
+        <div className="alert-container">
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            <strong>ERROR!</strong> You need to signin.
+          </div>
+        </div>
+      )}
       <div className="body__info">
         {product.map((product, index) => {
           return (

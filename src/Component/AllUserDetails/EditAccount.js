@@ -89,7 +89,8 @@ const EditAccount = forwardRef((props, ref) => {
             type="button"
             className="btn-close"
             onClick={() => setShow(false)}
-          ></button>
+          >
+          </button>
         </div>
         <div className="modal-body">
           {message && <div className="alert alert-danger">{message}</div>}

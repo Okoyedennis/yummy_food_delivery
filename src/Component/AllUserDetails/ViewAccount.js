@@ -27,7 +27,7 @@ const ViewAccount = forwardRef((props, ref) => {
     <Modal show={show}>
       <form noValidate>
         <div className="modal-header">
-          <h5 className="modal-title text-dark">User Details</h5>
+          <h5 className="modal-title text-dark">My Account</h5>
           <button
             type="button"
             className="btn-close"
