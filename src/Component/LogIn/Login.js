@@ -6,11 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import BASE_URL from "../../services/Constant";
 import User from "../../Models/User";
 import { setCurrentUser } from "../../redux/actions/user";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [user, setUser] = useState(new User("", "", "", "", ""));
-  const [message, setMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState(false);
   const [pending, setPending] = useState(false);
   const navigate = useNavigate("/");
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (!user.email || !user.password) {
-      setMessage("Please fill out all input");
       return;
     }
     axios
@@ -47,15 +46,46 @@ const Login = () => {
         setPending(true);
         dispatch(setCurrentUser(resp.data));
 
+         setTimeout(() => {
+           if (resp.status === 200) {
+              toast.success("Login Successful.", {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+           }
+         }, 2000);
+
         setTimeout(() => {
           navigate("/");
         }, 4000);
       })
       .catch((error) => {
         setPending(true);
-        setErrorMessage(true);
         if (error.response.status === 401) {
-          setMessage("Email or password incorrect");
+              toast.error("Email or password incorrect.", {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+        } else {
+            toast.error("Unexpected Error.", {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
         }
         console.error(error);
       });
@@ -63,16 +93,27 @@ const Login = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (errorMessage || message || pending) {
-        setErrorMessage(null);
+      if (pending) {
         setPending(false);
-        setMessage("");
       }
     }, 5000);
-  }, [errorMessage, message, pending]);
+  }, [pending]);
 
   return (
     <div className="signUp">
+      <ToastContainer
+        theme="colored"
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Bounce}
+      />
       <div className="signUp__wrapper container">
         <div className="signUp__content">
           <h2>Sign In</h2>
@@ -94,8 +135,6 @@ const Login = () => {
               onChange={(e) => handleChange(e)}
             />
 
-             <p>{errorMessage}</p>
-            <p>{message}</p>
             <button disabled={pending} type="submit">
               {pending ? (
                 <div class="spinner-border text-white" role="status"></div>

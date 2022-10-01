@@ -8,11 +8,11 @@ import "./Icecream.css";
 import { useDispatch, useSelector } from "react-redux";
 import { authHeader } from "../../services/BaseService";
 import { addCurrentCount } from "../../redux/actions/user";
+import { ToastContainer, toast, Flip } from "react-toastify";
+
 
 function Icecream() {
   const [product, setProduct] = useState([]);
-  const [loggedInAlert, setLoggedInAlert] = useState(false);
-
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user);
@@ -53,34 +53,37 @@ function Icecream() {
        console.log(error);
      });
  } else {
-        setLoggedInAlert(true);
+         toast.error("You need to signin.", {
+           position: "top-center",
+           autoClose: 4000,
+           hideProgressBar: true,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+         });
 
  }
   };
-
-    useEffect(() => {
-      setTimeout(() => {
-        if (loggedInAlert) {
-          setLoggedInAlert(false);
-        }
-      }, 5000);
-    }, [loggedInAlert]);
   
   
   return (
     <div className="body containe">
       <h1>Sweet Treats For You</h1>
       <div className="underline"></div>
-      {loggedInAlert && (
-        <div className="alert-container">
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>ERROR!</strong> You need to signin.
-          </div>
-        </div>
-      )}
+      <ToastContainer
+        theme="colored"
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Flip}
+      />
       <div className="body__info">
         {product.slice(8, 11 ? 11 : product.length).map((product, index) => {
           return (

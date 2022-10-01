@@ -1,3 +1,3 @@
-const BASE_URL = "https://chomp-app-sq10.herokuapp.com";
+const BASE_URL = "http://localhost:8082";
 
 export default BASE_URL;

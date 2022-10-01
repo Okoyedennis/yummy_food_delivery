@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import BASE_URL from "../../services/Constant";
 import User from "../../Models/User";
 import "./SignUp.css";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [user, setUser] = useState(new User("", "", "", "", "", "", ""));
@@ -47,8 +49,24 @@ const SignUp = () => {
 
     axios
       .post(`${BASE_URL}/signup`, user)
-      .then(() => {
-        navigate("/login");
+      .then((resp) => {
+             setTimeout(() => {
+               if (resp.status === 200) {
+                 toast.success("Signup Successful.", {
+                   position: "top-right",
+                   autoClose: 4000,
+                   hideProgressBar: true,
+                   closeOnClick: true,
+                   pauseOnHover: true,
+                   draggable: true,
+                   progress: undefined,
+                 });
+               }
+             }, 2000);
+        
+           setTimeout(() => {
+              navigate("/login");
+           }, 4000);
       })
       .catch((error) => {
         setErrorMessage(error.response.data);
@@ -67,6 +85,19 @@ const SignUp = () => {
 
   return (
     <div className="signUp">
+       <ToastContainer
+        theme="colored"
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Bounce}
+      />
       <div className="signUp__wrapper container">
         <div className="signUp__content">
           <h2>Register</h2>

@@ -7,10 +7,11 @@ import Cart from "../../Models/Cart";
 import { addCurrentCount } from "../../redux/actions/user";
 import { authHeader } from "../../services/BaseService";
 import BASE_URL from "../../services/Constant";
+import { ToastContainer, toast, Flip } from "react-toastify";
+
 
 function FullMenu() {
   const [product, setProduct] = useState([]);
-  const [loggedInAlert, setLoggedInAlert] = useState(false);
   
    const dispatch = useDispatch();
 
@@ -52,33 +53,36 @@ function FullMenu() {
            console.log(error);
          });
      } else {
-        setLoggedInAlert(true);
+            toast.error("You need to signin.", {
+              position: "top-center",
+              autoClose: 4000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
 
      }
     };
-  
-    useEffect(() => {
-      setTimeout(() => {
-        if (loggedInAlert) {
-          setLoggedInAlert(false);
-        }
-      }, 5000);
-    }, [loggedInAlert]);
   
   return (
     <div className="body containe">
       <h1>Full Menu</h1>
       <div className="underline"></div>
-      {loggedInAlert && (
-        <div className="alert-container">
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>ERROR!</strong> You need to signin.
-          </div>
-        </div>
-      )}
+      <ToastContainer
+        theme="colored"
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Flip}
+      />
       <div className="body__info">
         {product.map((product, index) => {
           return (

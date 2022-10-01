@@ -9,16 +9,15 @@ import BASE_URL from "../../services/Constant";
 import "./Body.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addCurrentCount } from "../../redux/actions/user";
-
+import { ToastContainer, toast, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Body() {
   const [product, setProduct] = useState([]);
   const dispatch = useDispatch();
-  const [loggedInAlert, setLoggedInAlert] = useState(false)
   const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
-
     axios
       .get(`${BASE_URL}/api/v1/auth/users/getAllProducts`)
       .then((resp) => {
@@ -30,84 +29,88 @@ function Body() {
   }, []);
 
   const addToCart = (product) => {
-
     if (currentUser) {
-        const cart = new Cart(
-          currentUser.userId,
-          product.productId,
-          product.productName,
-          product.productImage,
-          product.size,
-          product.quantity,
-          product.unitPrice,
-          product.subTotal,
-          product.cartId
-        );
+      const cart = new Cart(
+        currentUser.userId,
+        product.productId,
+        product.productName,
+        product.productImage,
+        product.size,
+        product.quantity,
+        product.unitPrice,
+        product.subTotal,
+        product.cartId
+      );
 
-        axios
-          .post(`${BASE_URL}/cart/add-to-cart/${product.productId}`, cart, {
-            headers: authHeader(),
-          })
-          .then(() => {
-            dispatch(addCurrentCount());
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      axios
+        .post(`${BASE_URL}/cart/add-to-cart/${product.productId}`, cart, {
+          headers: authHeader(),
+        })
+        .then(() => {
+          dispatch(addCurrentCount());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
-      setLoggedInAlert(true)
-  }
+      toast.error("You need to signin.", {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (loggedInAlert) {
-        setLoggedInAlert(false)
-      }
-    }, 5000);
-  }, [loggedInAlert]);
-  
+
   return (
     <div className="body container">
       <h1>Choose your favorite</h1>
       <div className="underline"></div>
-      {loggedInAlert && (
-        <div className="alert-container">
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>ERROR!</strong> You need to signin.
-          </div>
-        </div>
-      )}
+      <ToastContainer
+        theme="colored"
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition= {Flip}
+
+      />
       <div className="body__info">
         {product.slice(0, 3 ? 3 : product.length).map((product, index) => {
           return (
             <div className="body__flex" key={index}>
-              {product.productName.includes("Pizza") && (
-                <div>
-                  <Link to={`/singleProduct/${product.productId}`}>
-                    <img src={product.productImage} alt={product.productName} />
-                    <h3>{product.productName}</h3>
-                    <p className="desc">{product.productDescription}</p>
-                    <p className="price">
-                      <CurrencyFormat
-                        renderText={(value) => <b>{value}</b>}
-                        decimalScale={2}
-                        value={product.productPrice}
-                        displayType={"text"}
-                        thousandSeparator={true}
-                        prefix={"₦"}
-                      />
-                    </p>
-                  </Link>
+              {/* {product.productName.includes("Pizza") && ( */}
+              <div>
+                <Link to={`/singleProduct/${product.productId}`}>
+                  <img src={product.productImage} alt={product.productName} />
+                  <h3>{product.productName}</h3>
+                  <p className="desc">{product.productDescription}</p>
+                  <p className="price">
+                    <CurrencyFormat
+                      renderText={(value) => <b>{value}</b>}
+                      decimalScale={2}
+                      value={product.productPrice}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"₦"}
+                    />
+                  </p>
+                </Link>
 
-                  <button className="btns" onClick={() => addToCart(product)}>
-                    Add to Cart
-                  </button>
-                </div>
-              )}
+                <button className="btns" onClick={() => addToCart(product)}>
+                  Add to Cart
+                </button>
+              </div>
+              {/* )} */}
             </div>
           );
         })}
