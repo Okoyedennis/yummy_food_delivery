@@ -27,28 +27,32 @@ function FullMenu() {
     }, []);
   
     const addToCart = (product) => {
-      const cart = new Cart(
-        currentUser.userId,
-        product.productId,
-        product.productName,
-        product.productImage,
-        product.size,
-        product.quantity,
-        product.unitPrice,
-        product.subTotal,
-        product.cartId
-      );
+     if (currentUser) {
+       const cart = new Cart(
+         currentUser.userId,
+         product.productId,
+         product.productName,
+         product.productImage,
+         product.size,
+         product.quantity,
+         product.unitPrice,
+         product.subTotal,
+         product.cartId
+       );
 
-      axios
-        .post(`${BASE_URL}/cart/add-to-cart/${product.productId}`, cart, {
-          headers: authHeader(),
-        })
-        .then(() => {
-          dispatch(addCurrentCount());
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+       axios
+         .post(`${BASE_URL}/cart/add-to-cart/${product.productId}`, cart, {
+           headers: authHeader(),
+         })
+         .then(() => {
+           dispatch(addCurrentCount());
+         })
+         .catch((error) => {
+           console.log(error);
+         });
+     } else {
+       alert("You Need to Login ");
+     }
     };
   
   return (

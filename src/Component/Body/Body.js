@@ -18,6 +18,7 @@ function Body() {
   const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
+
     axios
       .get(`${BASE_URL}/api/v1/auth/users/getAllProducts`)
       .then((resp) => {
@@ -29,28 +30,34 @@ function Body() {
   }, []);
 
   const addToCart = (product) => {
-    const cart = new Cart(
-      currentUser.userId,
-      product.productId,
-      product.productName,
-      product.productImage,
-      product.size,
-      product.quantity,
-      product.unitPrice,
-      product.subTotal,
-      product.cartId
-    );
 
-    axios
-      .post(`${BASE_URL}/cart/add-to-cart/${product.productId}`, cart, {
-        headers: authHeader(),
-      })
-      .then(() => {
-        dispatch(addCurrentCount());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (currentUser) {
+        const cart = new Cart(
+          currentUser.userId,
+          product.productId,
+          product.productName,
+          product.productImage,
+          product.size,
+          product.quantity,
+          product.unitPrice,
+          product.subTotal,
+          product.cartId
+        );
+
+        axios
+          .post(`${BASE_URL}/cart/add-to-cart/${product.productId}`, cart, {
+            headers: authHeader(),
+          })
+          .then(() => {
+            dispatch(addCurrentCount());
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    } else {
+      alert("You Need to Login ");
+  }
+
   };
   return (
     <div className="body containe">
@@ -60,7 +67,7 @@ function Body() {
         {product.slice(0, 3 ? 3 : product.length).map((product, index) => {
           return (
             <div className="body__flex" key={index}>
-              {/* {product.productName.includes("Pizza") && ( */}
+              {product.productName.includes("Pizza") && (
               <div>
                 <Link to={`/singleProduct/${product.productId}`}>
                   <img src={product.productImage} alt={product.productName} />
@@ -82,7 +89,7 @@ function Body() {
                   Add to Cart
                 </button>
               </div>
-              {/* )} */}
+              )} 
             </div>
           );
         })}
