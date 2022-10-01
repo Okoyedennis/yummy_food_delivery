@@ -139,7 +139,7 @@ const Login = () => {
               {pending ? (
                 <div class="spinner-border text-white" role="status"></div>
               ) : (
-                <>Sign Up</>
+                <>SignIn</>
               )}
             </button>
             <Link to="/signUp">Don't have an Account? SignUp</Link>
