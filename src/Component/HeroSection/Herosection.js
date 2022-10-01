@@ -11,7 +11,7 @@ function Herosection() {
         </h1>
         <h4>READY IN 60 SECONDS.</h4>
         <Link to="/fullmenu">
-          <button className="btns">Place Order</button>
+          <button className="btns">View</button>
         </Link>
       </div>
     </div>
